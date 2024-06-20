@@ -129,7 +129,6 @@ import functools
 import logging
 import socket
 import threading
-import random
 import string
 import boto3
 from concurrent import futures
@@ -141,6 +140,7 @@ from botocore.exceptions import IncompleteReadError
 
 import boto3.compat
 from boto3.exceptions import RetriesExceededError, S3UploadFailedError
+import secrets
 
 
 logger = logging.getLogger(__name__)
@@ -151,7 +151,7 @@ SHUTDOWN_SENTINEL = object()
 
 
 def random_file_extension(num_digits=8):
-    return ''.join(random.choice(string.hexdigits) for _ in range(num_digits))
+    return ''.join(secrets.choice(string.hexdigits) for _ in range(num_digits))
 
 
 def disable_upload_callbacks(request, operation_name, **kwargs):
